@@ -33,7 +33,6 @@ public class Cart {
     }
 
 
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Кошик містить:\n");
