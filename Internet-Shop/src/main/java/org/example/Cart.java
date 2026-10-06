@@ -1,12 +1,13 @@
+package org.example;
+
+import lombok.NoArgsConstructor;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@NoArgsConstructor
 public class Cart {
-    private List<Product> products;
-
-    public Cart() {
-        this.products = new ArrayList<>();
-    }
+    private List<Product> products = new ArrayList<>();
 
     public void addProduct(Product product) {
         products.add(product);
@@ -32,7 +33,6 @@ public class Cart {
         products.clear();
     }
 
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Кошик містить:\n");
@@ -42,5 +42,4 @@ public class Cart {
         sb.append("Загальна вартість: ").append(getTotalPrice());
         return sb.toString();
     }
-
 }

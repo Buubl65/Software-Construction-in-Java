@@ -1,30 +1,26 @@
+package org.example;
+
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@NoArgsConstructor
 public class Order {
     private List<Product> products;
     private double totalPrice;
+
+    @Setter
     private String status;
 
     public Order(Cart cart) {
         this.products = new ArrayList<>(cart.getProducts());
         this.totalPrice = cart.getTotalPrice();
         this.status = "Нове";
-    }
-
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public List<Product> getProducts() {
-        return products;
-    }
-    public double getTotalPrice() {
-        return totalPrice;
-    }
-    public String getStatus() {
-        return status;
     }
 
     @Override
