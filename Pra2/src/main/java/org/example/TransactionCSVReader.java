@@ -3,9 +3,12 @@ package org.example;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransactionCSVReader {
+public abstract class TransactionCSVReader {
 
-    public List<Transaction> parse(List<String> lines) {
+    private TransactionCSVReader() {
+    }
+
+    public static List<Transaction> parse(List<String> lines) {
         List<Transaction> transactions = new ArrayList<>();
 
         for (String line : lines) {

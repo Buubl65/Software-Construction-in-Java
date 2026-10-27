@@ -11,11 +11,11 @@ public class ExpenseReportMain {
             System.out.println("Аргументи: <CSV> <yyyy-MM-dd> <yyyy-MM-dd> <звіт.txt> [грн за символ, типово 1000]");
             return;
         }
-        ExpenseAnalysis analysis = new ExpenseAnalysis(new TransactionCSVReader()
-                .parse(Files.readAllLines(Path.of(args[0]), StandardCharsets.UTF_8)));
+        ExpenseAnalysis analysis = new ExpenseAnalysis(TransactionCSVReader.parse(Files.readAllLines(Path.of(args[0]), StandardCharsets.UTF_8)));
         String report = new ExpenseTextReport().generate(analysis, LocalDate.parse(args[1]),
                 LocalDate.parse(args[2]), args.length == 5 ? Double.parseDouble(args[4]) : 1000);
         Files.writeString(Path.of(args[3]), report, StandardCharsets.UTF_8);
         System.out.print(report);
     }
 }
+

@@ -14,8 +14,7 @@ public class TransactionCSVReaderTest {
         try {
             Files.writeString(csv, "01-01-2024,-1200.50,Продукти\n02-01-2024,5000,Зарплата\n",
                     StandardCharsets.UTF_8);
-            List<Transaction> result = new TransactionCSVReader()
-                    .parse(Files.readAllLines(csv, StandardCharsets.UTF_8));
+            List<Transaction> result = TransactionCSVReader.parse(Files.readAllLines(csv, StandardCharsets.UTF_8));
             assertEquals(2, result.size());
             assertEquals("01-01-2024", result.get(0).getDate());
             assertEquals(-1200.50, result.get(0).getAmount(), 0.001);
@@ -29,10 +28,11 @@ public class TransactionCSVReaderTest {
 
     @Test
     public void skipsIncorrectColumnCountsAndPreservesEmptyDescription() {
-        List<Transaction> result = new TransactionCSVReader().parse(List.of(
+        List<Transaction> result = TransactionCSVReader.parse(List.of(
                 "invalid", "01-01-2024,-50,", "01-01-2024,-10,Food,extra"));
         assertEquals(1, result.size());
         assertEquals("", result.get(0).getDescription());
-        assertTrue(new TransactionCSVReader().parse(List.of()).isEmpty());
+        assertTrue(TransactionCSVReader.parse(List.of()).isEmpty());
     }
 }
+

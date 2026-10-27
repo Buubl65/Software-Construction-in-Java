@@ -15,11 +15,9 @@ class TransactionAnalyzerTest {
         Transaction transaction3 = new Transaction("2023-01-03", 150.0, "Дохід");
         List<Transaction> transactions = Arrays.asList(transaction1, transaction2, transaction3);
 
-        // Створення екземпляру TransactionAnalyzer з тестовими даними
-        TransactionAnalyzer analyzer = new TransactionAnalyzer(transactions);
 
         // Виклик методу, який потрібно протестувати
-        double result = analyzer.calculateTotalBalance();
+        double result = TransactionAnalyzer.calculateTotalBalance(transactions);
 
         // Перевірка результату
         Assertions.assertEquals(200.0, result, "Розрахунок загального балансу неправильний");
@@ -33,11 +31,9 @@ class TransactionAnalyzerTest {
         Transaction transaction3 = new Transaction("05-03-2023", 100.0, "Дохід");
         List<Transaction> transactions = Arrays.asList(transaction1, transaction2, transaction3);
 
-        // Створення екземпляру TransactionAnalyzer з тестовими даними
-        TransactionAnalyzer analyzer = new TransactionAnalyzer(transactions);
 
-        int countFeb = analyzer.countTransactionsByMonth("02-2023");
-        int countMar = analyzer.countTransactionsByMonth("03-2023");
+        int countFeb = TransactionAnalyzer.countTransactionsByMonth(transactions, "02-2023");
+        int countMar = TransactionAnalyzer.countTransactionsByMonth(transactions, "03-2023");
 
         // Перевірка результатів
         Assertions.assertEquals(2, countFeb, "Кількість транзакцій за лютий неправильна");

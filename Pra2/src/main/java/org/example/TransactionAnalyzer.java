@@ -6,17 +6,14 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class TransactionAnalyzer {
-    private List<Transaction> transactions;
-    private DateTimeFormatter dateFormatter;
+public abstract class TransactionAnalyzer {
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
-    public TransactionAnalyzer(List<Transaction> transactions) {
-        this.transactions = transactions;
-        this.dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private TransactionAnalyzer() {
     }
 
     // Метод для розрахунку загального балансу
-    public double calculateTotalBalance() {
+    public static double calculateTotalBalance(List<Transaction> transactions) {
         double balance = 0;
         for (Transaction transaction : transactions) {
             balance += transaction.getAmount();
@@ -24,10 +21,10 @@ public class TransactionAnalyzer {
         return balance;
     }
 
-    public int countTransactionsByMonth(String monthYear) {
+    public static int countTransactionsByMonth(List<Transaction> transactions, String monthYear) {
         int count = 0;
         for (Transaction transaction : transactions) {
-            LocalDate date = LocalDate.parse(transaction.getDate(), dateFormatter);
+            LocalDate date = LocalDate.parse(transaction.getDate(), DATE_FORMATTER);
             String transactionMonthYear = date.format(DateTimeFormatter.ofPattern("MM-yyyy"));
             if (transactionMonthYear.equals(monthYear)) {
                 count++;
@@ -36,7 +33,7 @@ public class TransactionAnalyzer {
         return count;
     }
 
-    public List<Transaction> findTopExpenses() {
+    public static List<Transaction> findTopExpenses(List<Transaction> transactions) {
         return transactions.stream()
                 .filter(t -> t.getAmount() < 0) // Вибірка лише витрат (від'ємні значення)
                 .sorted(Comparator.comparing(Transaction::getAmount)) // Сортування за сумою
