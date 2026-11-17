@@ -15,7 +15,7 @@ public final class OrderProcessor<T extends Product> {
         } catch (RuntimeException exception) {
             throw new OrderProcessingException(order.id(), "Не вдалося обробити замовлення " + order.id(), exception);
         }
-        System.out.printf("[%s] %s × %d = %s%n", Thread.currentThread().getName(),
+        System.out.printf("[Потік %d] %s × %d = %s%n", Thread.currentThread().threadId(),
                 order.product().getName(), order.quantity(), order.total());
         return order;
     }

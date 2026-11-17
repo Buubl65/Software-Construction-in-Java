@@ -7,12 +7,10 @@ subprojects {
     repositories { mavenCentral() }
     extensions.configure<JavaPluginExtension> {
         toolchain.languageVersion.set(JavaLanguageVersion.of(27))
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
     }
     tasks.withType<JavaCompile>().configureEach {
         options.encoding = "UTF-8"
-        options.release.set(17)
+        options.release.set(27)
     }
     dependencies {
         "testImplementation"(platform("org.junit:junit-bom:5.11.4"))
